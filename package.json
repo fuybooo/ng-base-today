@@ -7,7 +7,9 @@
     "l": "lite-server",
     "preb-old": "node package-version.js",
     "b-old": "ng build --aot --prod --base-href /ng-pro-name --deploy-url /ng-pro-name/",
-    "b": "ng build --prod"
+    "b": "ng build --prod --base-href /ng-base-today --deploy-url /ng-base-today/",
+    "p": "./publish.sh",
+    "c": "./commit.sh"
   },
   "private": true,
   "dependencies": {
