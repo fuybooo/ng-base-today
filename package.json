@@ -2,12 +2,12 @@
   "name": "ng-base-today",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "start": "ng serve --open --port 2712",
+    "bl": "ng build --prod",
+    "l": "lite-server",
+    "preb-old": "node package-version.js",
+    "b-old": "ng build --aot --prod --base-href /ng-pro-name --deploy-url /ng-pro-name/",
+    "b": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -43,6 +43,24 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.1.1"
+    "typescript": "~3.1.1",
+    "@ngx-translate/core": "^10.0.2",
+    "@ngx-translate/http-loader": "^3.0.1",
+    "@types/echarts": "^4.1.1",
+    "@types/jquery": "^3.3.18",
+    "@types/jquery.cookie": "^1.4.31",
+    "classlist.js": "^1.1.20150312",
+    "dexie": "^2.0.4",
+    "echarts": "^4.2.0-rc.2",
+    "jquery": "^3.3.1",
+    "jquery.cookie": "^1.4.1",
+    "jquery.mousewheel": "^3.1.9",
+    "js-base64": "^2.4.9",
+    "less": "^2.7.0",
+    "lite-server": "^2.4.0",
+    "malihu-custom-scrollbar-plugin": "^3.1.5",
+    "ng-zorro-antd": "^1.6.0",
+    "wangeditor": "^3.1.1",
+    "web-animations-js": "^2.3.1"
   }
 }

@@ -1,27 +1,57 @@
-# NgBaseToday
+## angular项目模板升级
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.4.
+## 步骤
+### 创建项目，测试能否启动
+1. ng new ng-base-pro --skip-install --skip-tests
+2. cd ng-base-pro
+3. yarn
+4. yarn start
 
-## Development server
+### pack.json
+1. 修改执行脚本 -- 脚本需要新增一个文件，后续介绍
+2. 新增必要的安装包
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### angular.json
+1. 修改属性 schematics
+```json
+        "schematics": {
+          "@schematics/angular:component": {
+            "spec": false,
+            "styleext": "less"
+          },
+          "@schematics/angular:class": {
+            "spec": false
+          },
+          "@schematics/angular:directive": {
+            "spec": false
+          },
+          "@schematics/angular:guard": {
+            "spec": false
+          },
+          "@schematics/angular:module": {
+            "spec": false
+          },
+          "@schematics/angular:pipe": {
+            "spec": false
+          },
+          "@schematics/angular:service": {
+            "spec": false
+          }
+        }
+```
+2. 修改属性 styles
+```json
+          "styles": [
+                      "node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css",
+                      "src/styles.less"
+                    ]
+```
+### polyfills.ts
+1. 将一部分注释掉的代码解注释
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### index.html
+1. 加入一些脚本以便发布
+### 新增package-version.js
+1. 在打包之前会运行此脚本，在index.html中加入打包时间
+### 404.html
+### publish.sh

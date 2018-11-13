@@ -9,10 +9,11 @@
       "projectType": "application",
       "prefix": "app",
       "schematics": {
-        "@schematics/angular:class": {
-          "spec": false
-        },
         "@schematics/angular:component": {
+          "spec": false,
+          "styleext": "less"
+        },
+        "@schematics/angular:class": {
           "spec": false
         },
         "@schematics/angular:directive": {
@@ -45,7 +46,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css",
+              "src/styles.less"
             ],
             "scripts": []
           },
