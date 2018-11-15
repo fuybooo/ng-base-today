@@ -1,0 +1,33 @@
+<div class="header-container">
+  <img src="./assets/images/logo.png" alt="logo" class="background-img">
+  <div class="list-title-wrapper">{{listTitle}}</div>
+  <div class="suggest-btn-wrapper">
+    <nz-dropdown [nzTrigger]="'click'" [nzClickHide]="false" [nzPlacement]="'bottomRight'">
+      <button nz-dropdown nz-button nzType="primary">
+        <i nz-icon [type]="'bulb'"></i>建议
+      </button>
+      <div nz-menu class="dropdown-content-wrapper">
+        <app-suggest></app-suggest>
+      </div>
+    </nz-dropdown>
+  </div>
+  <div class="action-btn-wrapper">
+    <nz-dropdown [nzPlacement]="'bottomRight'">
+      <a nz-dropdown>
+        <i nz-icon type="setting"></i>
+        设置
+      </a>
+      <ul nz-menu>
+        <li nz-menu-item (click)="toggleCompleteHide()">
+          {{completeHide ? '显示已完成' : '隐藏已完成'}}
+        </li>
+        <li nz-submenu>
+          <span title>排序</span>
+          <ul nzSelectable class="sort-option-list">
+            <li nz-menu-item *ngFor="let sort of sortList" (click)="switchRankType(sort.code)">{{sort.name}}</li>
+          </ul>
+        </li>
+      </ul>
+    </nz-dropdown>
+  </div>
+</div>

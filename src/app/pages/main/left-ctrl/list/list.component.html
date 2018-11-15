@@ -1,0 +1,25 @@
+<ul nz-menu
+    [nzTheme]="'dark'"
+    [nzMode]="'inline'"
+    [nzInlineCollapsed]="isCollapsed"
+>
+  <li nz-menu-item
+      [nzSelected]="crtListUid === 'today'"
+      (click)="clickItem('today')"
+  >
+    <span><i nz-icon [type]="'home'"></i><span class="nav-text">Today</span></span>
+  </li>
+  <li nz-menu-item
+      [nzSelected]="crtListUid === 'todo'"
+      (click)="clickItem('todo')"
+  >
+    <span><i nz-icon [type]="'calendar'"></i><span class="nav-text">TODO</span></span>
+  </li>
+  <li nz-menu-item
+      *ngFor="let list of lists"
+      [nzSelected]="crtListUid === list.uid"
+      (click)="clickItem(list.uid)"
+  >
+    <span><span class="nav-text"><i nz-icon [type]="'bars'"></i>{{list.title}}</span></span>
+  </li>
+</ul>

@@ -61,7 +61,7 @@
     "less": "^2.7.0",
     "lite-server": "^2.4.0",
     "malihu-custom-scrollbar-plugin": "^3.1.5",
-    "ng-zorro-antd": "^1.6.0",
+    "ng-zorro-antd": "^1.8.0",
     "wangeditor": "^3.1.1",
     "web-animations-js": "^2.3.1"
   }

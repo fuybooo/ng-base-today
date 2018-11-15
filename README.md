@@ -55,3 +55,12 @@
 1. 在打包之前会运行此脚本，在index.html中加入打包时间
 ### 404.html
 ### publish.sh
+### commit.sh
+### bs-config.json
+
+### 脚本
+1. 运行程序 yarn start
+2. 打一个本地测试的包 yarn bl
+3. 运行本地 yarn l
+4. 打包，并发布到git hub 的pages上 yarn p
+5. 提交代码 yarn c
