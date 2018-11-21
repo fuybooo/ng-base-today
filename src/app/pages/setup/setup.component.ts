@@ -1,8 +1,8 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
 import {setupTransition} from './setup.animation';
-import {LocalStorageService} from '../../core/services/local-storage.service';
-import {INIT_FLAG, START_USING_DATE, USERNAME} from '../../core/services/local-storage.namespace';
 import {Router} from '@angular/router';
+import {LocalStorageService} from '../../core/local-storage/local-storage.service';
+import {INIT_FLAG, START_USING_DATE, USERNAME} from '../../core/local-storage/local-storage.namespace';
 
 @Component({
   selector: 'app-setup',

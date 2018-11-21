@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import {LocalStorageService} from './local-storage.service';
-import {INIT_FLAG} from './local-storage.namespace';
+import {LocalStorageService} from '../local-storage/local-storage.service';
+import {INIT_FLAG} from '../local-storage/local-storage.namespace';
 
 @Injectable()
 export class InitGuardService implements CanActivate {

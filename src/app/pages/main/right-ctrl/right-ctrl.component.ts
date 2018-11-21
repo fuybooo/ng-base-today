@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {TodoComponent} from './todo/todo.component';
 
 @Component({
   selector: 'app-right-ctrl',
@@ -6,15 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./right-ctrl.component.less']
 })
 export class RightCtrlComponent implements OnInit {
-  visible = false;
-  constructor() { }
+  @ViewChild(TodoComponent) public todoList: TodoComponent;
+  listUid: string;
+  constructor(
+  ) { }
 
   ngOnInit() {
   }
-  open() {
-    this.visible = true;
-  }
-  close() {
-    this.visible = false;
+  add(title: string) {
+    this.todoList.add(title);
   }
 }

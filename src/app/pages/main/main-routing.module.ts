@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MainComponent} from './main.component';
-import {DetailComponent} from './detail/detail.component';
-import {InitGuardService} from '../../core/services/init-guard.service';
+import {InitGuardService} from '../../core/guard/init-guard.service';
 const routes: Routes = [
   {
     path: '',
@@ -10,10 +9,14 @@ const routes: Routes = [
     canActivate: [InitGuardService],
   },
   {
-    path: ':id',
-    component: DetailComponent,
+    path: ':listUid',
+    component: MainComponent,
     canActivate: [InitGuardService],
-    pathMatch: 'full'
+  },
+  {
+    path: ':listUid/:id',
+    component: MainComponent,
+    canActivate: [InitGuardService],
   }
 ];
 

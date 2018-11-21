@@ -10,12 +10,18 @@ import { HeaderComponent } from './right-ctrl/header/header.component';
 import { TodoComponent } from './right-ctrl/todo/todo.component';
 import { QuickAddComponent } from './right-ctrl/quick-add/quick-add.component';
 import { SuggestComponent } from './right-ctrl/header/suggest/suggest.component';
+import {TodoService} from '../../services/todo.service';
+import {ListService} from '../../services/list.service';
 
 @NgModule({
   declarations: [MainComponent, LeftCtrlComponent, RightCtrlComponent, ListComponent, DetailComponent, HeaderComponent, TodoComponent, QuickAddComponent, SuggestComponent],
   imports: [
     SharedModule,
     MainRoutingModule
-  ]
+  ],
+  providers: [
+    TodoService,
+    ListService
+  ],
 })
 export class MainModule { }

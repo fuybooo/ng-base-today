@@ -3,7 +3,7 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/internal/operators';
-import {CoreService} from './core.service';
+import {CoreService} from '../core.service';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
@@ -30,6 +30,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     return next.handle(req).pipe(tap((res: HttpResponse<any>) => {
       // 请求成功
       if (res.body) {
+        // 页面元素的高度有些情况会根据请求回来的数据变化而变化,所以这里需要对页面的高度重新计算
         this.coreService.pageHeightEvent.emit();
       }
     }, (err: HttpErrorResponse) => {

@@ -4290,7 +4290,7 @@ neo-async@^2.5.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
 
-ng-zorro-antd@^1.6.0:
+ng-zorro-antd@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/ng-zorro-antd/-/ng-zorro-antd-1.8.0.tgz#a7864611df1018dbb25ce763d73c8f98f96f6ee8"
   dependencies:

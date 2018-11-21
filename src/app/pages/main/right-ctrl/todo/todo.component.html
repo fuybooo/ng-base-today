@@ -1,3 +1,70 @@
-<p>
-  todo works!
-</p>
+<nz-list *ngIf="todos.length > 0"
+         [nzDataSource]="todos"
+         [nzRenderItem]="item"
+         [nzItemLayout]="'horizontal'"
+>
+  <ng-template #item let-item>
+    <nz-list-item class="todo-item"
+                  (click)="click(item.uid)"
+                  (contextmenu)="contextMenu($event, todoContextRef, item.uid)"
+    >
+      <nz-list-item-meta
+        [nzTitle]="nzTitle"
+        [nzDescription]="nzDescription"
+      >
+        <ng-template #nzTitle>
+          <label nz-checkbox (click)="$event.stopPropagation()"
+                 [(ngModel)]="item.completedFlag"
+                 (ngModelChange)="toggle(item.uid)"
+          ></label>
+          <span [class.strikethrough]="item.completedFlag">{{item.title}}</span>
+        </ng-template>
+        <ng-template #nzDescription>
+          <span *ngIf="item.dueAt">
+            <i nz-icon type="calendar" class="mr8" title="截止日期"></i>{{item.dueAt | date: 'yyyy-MM-dd'}}
+          </span>
+          <span *ngIf="item.planAt">
+            <i nz-icon type="clock-circle-o" class="mr8" title="计划时间"></i>{{item.planAt | date: 'yyyy-MM-dd HH:mm'}}
+          </span>
+          <span *ngIf="item.notifyMe">
+            <i nz-icon type="bell" class="mr8"></i>
+          </span>
+          <span *ngIf="item.desc">
+            <i nz-icon type="edit"></i>
+          </span>
+        </ng-template>
+      </nz-list-item-meta>
+    </nz-list-item>
+  </ng-template>
+</nz-list>
+<ng-template #todoContextRef>
+  <ul nz-menu nzInDropDown (nzClick)="close()">
+    <li nz-menu-item (click)="setToday()">
+      <i nz-icon type="home" class="mr8"></i>
+      <span>设为今日</span>
+    </li>
+    <li nz-submenu>
+      <span title>
+        <i nz-icon type="bars" class="mr8"></i>
+        移动到...
+      </span>
+      <ul>
+        <li nz-menu-item *ngIf="currentContextTodo?.listUid !== 'todo'" (click)="moveToList('todo')">默认列表</li>
+        <li nz-menu-item *ngFor="let list of listsExcept(currentContextTodo.listUid)" (click)="moveToList(list.uid)">{{list.title}}</li>
+      </ul>
+    </li>
+    <li nz-menu-divider></li>
+    <li nz-menu-item (click)="delete()">
+      <i nz-icon type="delete" class="mr8 text-danger"></i>
+      <span class="text-danger">删除</span>
+    </li>
+  </ul>
+</ng-template>
+<nz-drawer
+  [nzClosable]="false"
+  [nzOffsetX]="0"
+  [nzWidth]="420"
+  [nzVisible]="visible"
+  (nzOnClose)="closeDrawer()">
+  <app-detail (close)="closeDrawer()"></app-detail>
+</nz-drawer>

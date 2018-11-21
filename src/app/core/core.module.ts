@@ -7,11 +7,15 @@ import {NgZorroAntdModule, NZ_I18N, NZ_MESSAGE_CONFIG, zh_CN} from 'ng-zorro-ant
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {PageNotFoundComponent} from '../page-not-found/page-not-found.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
-import {HttpInterceptorService} from './services/http-interceptor.service';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {environment} from '../../environments/environment';
-import {LocalStorageService} from './services/local-storage.service';
-import {InitGuardService} from './services/init-guard.service';
+import {registerLocaleData} from '@angular/common';
+import zh from '@angular/common/locales/zh';
+import {HttpInterceptorService} from './http/http-interceptor.service';
+import {LocalStorageService} from './local-storage/local-storage.service';
+import {InitGuardService} from './guard/init-guard.service';
+import {CoreService} from './core.service';
+registerLocaleData(zh);
 const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http, environment.deployPath + '/assets/i18n/', '.json');
 
 @NgModule({
@@ -31,7 +35,15 @@ const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http
     }),
   ],
   declarations: [PageNotFoundComponent],
-  exports: [PageNotFoundComponent],
+  exports: [
+    PageNotFoundComponent,
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    NgZorroAntdModule,
+  ],
   providers: [
     // ng-zorro的全局设置
     {provide: NZ_MESSAGE_CONFIG, useValue: {nzMaxStack: 1} },
@@ -39,6 +51,7 @@ const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http
     // http拦截器
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
+    CoreService,
     LocalStorageService,
     InitGuardService
   ]

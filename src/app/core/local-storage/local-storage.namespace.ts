@@ -17,3 +17,7 @@ export const LISTS = LIST_NAMESPACE + 'lists';
 export const SUMMARY_NAMESPACE = GLOBAL_NAMESPACE + 'summary.';
 export const LAST_SUMMARY_DATE = SUMMARY_NAMESPACE + 'lastSummaryDate';
 export const SUMMARIES = SUMMARY_NAMESPACE + 'summaries';
+
+export const PROJECT = 'project.';
+export const API_PATH = PROJECT + 'apiPath';
+export const LANG_INFO = PROJECT + 'langInfo';

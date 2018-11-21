@@ -5,6 +5,11 @@
 export const environment = {
   production: false,
   deployPath: '.',
+  apiPath: '',
+  apiPathChangeable: true,
+  isForceServer: false,
+  isForceStatic: false,
+  lang: 'zh',
 };
 
 /*
