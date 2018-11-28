@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
-import {SettingComponent} from './pages/setting/setting.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'setup',
+    redirectTo: 'wechat',
     pathMatch: 'full'
   },
   {
@@ -15,6 +14,10 @@ const routes: Routes = [
   {
     path: 'setting',
     loadChildren: './pages/setting/setting.module#SettingModule'
+  },
+  {
+    path: 'wechat',
+    loadChildren: './pages/wechat/wechat.module#WechatModule'
   },
   {
     path: 'setup',

@@ -2,6 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NzMessageService} from 'ng-zorro-antd';
 import {HttpService} from '../../../../core/http/http.service';
 
+/**
+ * 展示复杂的表格单元
+ */
 @Component({
   selector: 'app-table-formatter',
   templateUrl: './table-formatter.component.html',

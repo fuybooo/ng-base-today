@@ -2,6 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {getHref} from '../table.model';
 
+/**
+ * 普通表格
+ */
 @Component({
   selector: 'app-table-cell',
   templateUrl: './table-cell.component.html',

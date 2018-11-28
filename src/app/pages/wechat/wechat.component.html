@@ -1,0 +1,112 @@
+<div class="wechat-bg">
+  <div class="main">
+    <div class="main-inner">
+      <div class="left-content">
+        <div class="fixed-content">
+          <div class="header">
+            <div class="avatar">
+              <img [src]="crtUser?.avatar" alt="头像">
+            </div>
+            <div class="info">
+              <h1 class="nick-name">{{crtUser?.nickname}}</h1>
+              <i class="wechat-icon menu"></i>
+            </div>
+          </div>
+          <div class="search-bar">
+            <input class="search-input" type="text" placeholder="搜索">
+            <i class="wechat-icon search search-input-icon"></i>
+          </div>
+          <div class="tab-wrapper">
+            <div class="tab">
+              <span class="tab-item after pl15i"><i class="wechat-icon chat active"></i></span>
+              <span class="tab-item after"><i class="wechat-icon public"></i></span>
+              <span class="tab-item pr15i"><i class="wechat-icon friends"></i></span>
+            </div>
+          </div>
+          <div class="down-entry" nz-row>
+          <div nz-col [nzSpan]="20">下载微信PC版</div>
+          <div nz-col [nzSpan]="4" class="tar"><i class="wechat-icon close"></i></div>
+        </div>
+        </div>
+        <div class="variable-content">
+          <div class="nav-view" appScrollbar>
+          <div class="nav-view-item" *ngFor="let chat of chatList" [class.active]="chat.isActivated">
+            <div class="avatar mr10">
+              <!--是被屏蔽的群组：显示一个小点-->
+              <ng-container *ngIf="chat.msgCount && chat.isGroup && chat.isMuted">
+                <nz-badge nzDot class="is-dot">
+                  <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
+                </nz-badge>
+              </ng-container>
+              <!--是未被屏蔽的群组或者不是群组：显示未读条数-->
+              <ng-container *ngIf="chat.msgCount && ((chat.isGroup && !chat.isMuted) || (!chat.isGroup))">
+                <nz-badge [nzCount]="chat.msgCount">
+                  <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
+                </nz-badge>
+              </ng-container>
+              <!--不显示点或数字-->
+              <ng-container *ngIf="!chat.msgCount">
+                <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
+              </ng-container>
+            </div>
+            <div class="info">
+              <h3 class="nickname">{{chat.nickname}}</h3>
+              <p class="msg">{{chat.msg}}</p>
+            </div>
+            <div class="ext">
+              <p class="time">{{chat.time}}</p>
+              <p class="tar" *ngIf="chat.isMuted"><i class="wechat-icon remind" [class.active]="chat.isActivated"></i></p>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+      <div class="right-content">
+        <div class="title-wrapper">
+          <div class="title">
+            {{crtChat?.nickname}}({{crtChat?.memberCount || 9}})
+            <i nz-icon type="down"></i>
+          </div>
+        </div>
+        <div class="chat-content-wrapper">
+          <div class="chat-content">
+          <div class="chat-item" *ngFor="let chat of crtChat.contentList">
+            <div class="time" *ngIf="chat.time">{{chat.time}}</div>
+            <div class="content" [class.is-me]="chat.isMe">
+              <div class="avatar">
+                <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
+              </div>
+              <div class="message">
+                <div class="nickname" *ngIf="crtChat.showNickname">{{chat.nickname}}</div>
+                <div class="message-content">
+                  <!--根据消息类型显示消息样式-->
+                  <div class="message-wrapper" [class.text]="chat.messageType === MSG_TYPE.TEXT">
+                    {{chat.message}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="chat-sender">
+          <div class="toolbar">
+            <i class="wechat-icon face"></i>
+            <i class="wechat-icon clip"></i>
+            <i class="wechat-icon file"></i>
+          </div>
+          <div class="send-box">
+            <pre class="edit-area" contenteditable="true"></pre>
+          </div>
+          <div class="sender">
+            <span class="desc">按下Ctrl+Enter换行</span>
+            <button class="send" nz-button>发送</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      © 1998 - 2018 Tencent Inc. All Rights Reserved <span class="sep"></span> 帮助
+    </div>
+  </div>
+</div>
