@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  deployPath: '',
+  deployPath: 'ng-base-today',
   apiPath: '',
   apiPathChangeable: true,
   isForceServer: false,

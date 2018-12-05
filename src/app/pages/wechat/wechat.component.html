@@ -9,98 +9,182 @@
             </div>
             <div class="info">
               <h1 class="nick-name">{{crtUser?.nickname}}</h1>
-              <i class="wechat-icon menu"></i>
+              <nz-dropdown [nzTrigger]="'click'" [nzPlacement]="'bottomRight'">
+                <a nz-dropdown>
+                  <i class="wechat-icon menu"></i>
+                </a>
+                <ul nz-menu class="wechat-menu-ul">
+                  <li nz-menu-item (click)="changePermission('push');"><i class="wechat-icon mr10" [class.push-on]="isPushOn" [class.push-off]="!isPushOn"></i>关闭桌面通知</li>
+                  <li nz-menu-item (click)="changePermission('volume');"><i class="wechat-icon mr10" [class.volume-on]="isVolumeOn" [class.volume-off]="!isVolumeOn"></i>关闭声音</li>
+                  <li nz-menu-item><i class="wechat-icon feedback mr10"></i>意见反馈</li>
+                  <li nz-menu-item><i class="wechat-icon quit mr10"></i>退出</li>
+                </ul>
+              </nz-dropdown>
             </div>
           </div>
           <div class="search-bar">
-            <input class="search-input" type="text" placeholder="搜索">
+            <input class="search-input" type="text" placeholder="搜索" [(ngModel)]="keyword" (ngModelChange)="search()">
             <i class="wechat-icon search search-input-icon"></i>
+            <div class="search-result" *ngIf="keyword">
+              <ng-container *ngIf="resultList.length">
+                <div class="result-item" *ngFor="let result of resultList; index as i" [class.title]="result.title" [class.active]="i === 1">
+                  <ng-container *ngIf="result.title">
+                    {{result.title}}
+                  </ng-container>
+                  <ng-container *ngIf="!result.title">
+                    <div class="avatar"><img [src]="result.avatar" [alt]="result.alt || '头像'"></div>
+                    <div class="info">{{result.content}}</div>
+                  </ng-container>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="!resultList.length">
+                <div class="result-item no-record">找不到匹配的结果</div>
+              </ng-container>
+            </div>
           </div>
           <div class="tab-wrapper">
             <div class="tab">
-              <span class="tab-item after pl15i"><i class="wechat-icon chat active"></i></span>
-              <span class="tab-item after"><i class="wechat-icon public"></i></span>
-              <span class="tab-item pr15i"><i class="wechat-icon friends"></i></span>
+              <span class="tab-item after pl15i" (click)="changeTab(1)"><i class="wechat-icon chat" [class.active]="crtTabType === 1"></i></span>
+              <span class="tab-item after" (click)="changeTab(2)"><i class="wechat-icon public" [class.active]="crtTabType === 2"></i></span>
+              <span class="tab-item pr15i" (click)="changeTab(3)"><i class="wechat-icon friends" [class.active]="crtTabType === 3"></i></span>
             </div>
           </div>
           <div class="down-entry" nz-row>
-          <div nz-col [nzSpan]="20">下载微信PC版</div>
-          <div nz-col [nzSpan]="4" class="tar"><i class="wechat-icon close"></i></div>
-        </div>
-        </div>
-        <div class="variable-content">
-          <div class="nav-view" appScrollbar>
-          <div class="nav-view-item" *ngFor="let chat of chatList" [class.active]="chat.isActivated">
-            <div class="avatar mr10">
-              <!--是被屏蔽的群组：显示一个小点-->
-              <ng-container *ngIf="chat.msgCount && chat.isGroup && chat.isMuted">
-                <nz-badge nzDot class="is-dot">
-                  <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
-                </nz-badge>
-              </ng-container>
-              <!--是未被屏蔽的群组或者不是群组：显示未读条数-->
-              <ng-container *ngIf="chat.msgCount && ((chat.isGroup && !chat.isMuted) || (!chat.isGroup))">
-                <nz-badge [nzCount]="chat.msgCount">
-                  <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
-                </nz-badge>
-              </ng-container>
-              <!--不显示点或数字-->
-              <ng-container *ngIf="!chat.msgCount">
-                <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
-              </ng-container>
-            </div>
-            <div class="info">
-              <h3 class="nickname">{{chat.nickname}}</h3>
-              <p class="msg">{{chat.msg}}</p>
-            </div>
-            <div class="ext">
-              <p class="time">{{chat.time}}</p>
-              <p class="tar" *ngIf="chat.isMuted"><i class="wechat-icon remind" [class.active]="chat.isActivated"></i></p>
-            </div>
+            <div nz-col [nzSpan]="20">下载微信PC版</div>
+            <div nz-col [nzSpan]="4" class="tar"><i class="wechat-icon close"></i></div>
           </div>
         </div>
+        <div class="variable-content">
+          <div class="content-view" appScrollbar>
+            <ng-container *ngIf="crtTabType === 1">
+              <div class="nav-view-item" *ngFor="let chat of chatList" [class.active]="chat.isActivated" (click)="changeActive(chat)">
+              <div class="avatar mr10">
+                <!--是被屏蔽的群组：显示一个小点-->
+                <ng-container *ngIf="chat.msgCount && chat.isGroup && chat.isMuted">
+                  <nz-badge nzDot class="is-dot">
+                    <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
+                  </nz-badge>
+                </ng-container>
+                <!--是未被屏蔽的群组或者不是群组：显示未读条数-->
+                <ng-container *ngIf="chat.msgCount && ((chat.isGroup && !chat.isMuted) || (!chat.isGroup))">
+                  <nz-badge [nzCount]="chat.msgCount">
+                    <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
+                  </nz-badge>
+                </ng-container>
+                <!--不显示点或数字-->
+                <ng-container *ngIf="!chat.msgCount">
+                  <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
+                </ng-container>
+              </div>
+              <div class="info">
+                <h3 class="nickname">{{chat.nickname}}</h3>
+                <p class="msg">{{(chat.msgCount ? ('[' + chat.msgCount + '条] ') : '') + chat.msg}}</p>
+              </div>
+              <div class="ext">
+                <p class="time">{{chat.time}}</p>
+                <p class="tar" *ngIf="chat.isMuted"><i class="wechat-icon remind" [class.active]="chat.isActivated"></i>
+                </p>
+              </div>
+            </div>
+            </ng-container>
+            <ng-container *ngIf="crtTabType === 2">
+              <ng-container *ngFor="let read of readList">
+                <div class="read-view-item item-user-name" *ngIf="read.userName">
+                  <div class="item-user-name-content">
+                    <div class="avatar">
+                      <img [src]="read.avatar" [alt]="read.alt || '头像'">
+                    </div>
+                    <div class="user-name">{{read.userName}}</div>
+                    <div class="time">{{read.time}}</div>
+                  </div>
+                </div>
+                <div class="read-view-item item-content" *ngIf="!read.userName">
+                  <div class="title">{{read.title}}</div>
+                  <div class="avatar">
+                    <img [src]="read.avatar" [alt]="read.alt || '头像'">
+                  </div>
+                </div>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="crtTabType === 3">
+              <div class="concat-view-item" *ngFor="let concat of concatList">
+                <div *ngIf="concat.title" class="item-title">{{concat.title}}</div>
+                <div *ngIf="!concat.title" class="item-nickname">
+                  <div class="avatar"><img [src]="concat.avatar" [alt]="concat.alt || '头像'"></div>
+                  <div class="info" [innerHTML]="concat.nickname"></div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
         </div>
       </div>
       <div class="right-content">
         <div class="title-wrapper">
-          <div class="title">
-            {{crtChat?.nickname}}({{crtChat?.memberCount || 9}})
-            <i nz-icon type="down"></i>
+          <div class="title" (click)="toggleMemberBox()">
+            {{crtChat?.nickname}}{{crtChat?.memberList ? (crtChat?.memberList.length ? (' (' + crtChat?.memberList.length + ') ') : '') : ''}}
+            <i nz-icon type="down" *ngIf="crtChat.memberList && crtChat.memberList?.length"></i>
+          </div>
+        </div>
+        <div class="member-box"
+             *ngIf="crtChat.memberList && crtChat.memberList?.length"
+             [@titleToggle]="isOpen ? 'open' : 'close'"
+        >
+          <div class="member-item" *ngFor="let member of crtChat.memberList">
+            <div class="avatar">
+              <img [src]="member.avatar" [alt]="member.alt || '头像'">
+            </div>
+            <div class="nickname">{{member.nickname}}</div>
           </div>
         </div>
         <div class="chat-content-wrapper">
-          <div class="chat-content">
-          <div class="chat-item" *ngFor="let chat of crtChat.contentList">
-            <div class="time" *ngIf="chat.time">{{chat.time}}</div>
-            <div class="content" [class.is-me]="chat.isMe">
-              <div class="avatar">
-                <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
-              </div>
-              <div class="message">
-                <div class="nickname" *ngIf="crtChat.showNickname">{{chat.nickname}}</div>
-                <div class="message-content">
-                  <!--根据消息类型显示消息样式-->
-                  <div class="message-wrapper" [class.text]="chat.messageType === MSG_TYPE.TEXT">
-                    {{chat.message}}
+          <div class="chat-content" appScrollbar [options]="scrollOptions" #scrollContent>
+            <div class="chat-item" *ngFor="let chat of crtChat.contentList">
+              <div class="time" *ngIf="chat.time">{{chat.time}}</div>
+              <div class="content" [class.is-me]="chat.isMe">
+                <div class="avatar">
+                  <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
+                </div>
+                <div class="message">
+                  <div class="nickname" *ngIf="crtChat.showNickname">{{chat.nickname}}</div>
+                  <div class="message-content">
+                    <!--根据消息类型显示消息样式-->
+                    <div class="message-wrapper"
+                         [class.text]="chat.messageType === MSG_TYPE.TEXT"
+                         [innerHTML]="chat.message"
+                    ></div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        </div>
         <div class="chat-sender">
           <div class="toolbar">
-            <i class="wechat-icon face"></i>
-            <i class="wechat-icon clip"></i>
-            <i class="wechat-icon file"></i>
+            <i class="wechat-icon face" title="表情" (click)="toggleFace()"></i>
+            <i class="wechat-icon clip" title="截屏" (click)="screenshots()"></i>
+            <i class="wechat-icon file" title="图片和文件" (click)="fileInput.click()"></i>
+            <input type="file" hidden #fileInput (change)="selectFile(fileInput.files[0])">
+          </div>
+          <div class="face-panel" [@faceToggle]="faceOpen ? 'open' : 'close'">
+            <div class="face-tab">
+              <div class="tab" [class.active]="faceType === 1" (click)="faceType = 1;">QQ表情</div>
+              <div class="tab" [class.active]="faceType === 2" (click)="faceType = 2;">符号表情</div>
+            </div>
+            <div class="face-wrapper" appScrollbar>
+              <div class="face-box qq-face" *ngIf="faceType === 1">
+                <a *ngFor="let face of faceList" [class]="face.cls" [title]="face.title" (click)="selectFace(face)">{{face.title}}</a>
+              </div>
+              <div class="face-box emoji-face" *ngIf="faceType === 2">
+                <a *ngFor="let face of emojiList" [class]="face.cls" [title]="face.title">{{face.title}}</a>
+              </div>
+            </div>
           </div>
           <div class="send-box">
-            <pre class="edit-area" contenteditable="true"></pre>
+            <pre class="edit-area" contenteditable="true" #contentInput (keydown)="keyCrtContent($event)"></pre>
           </div>
           <div class="sender">
             <span class="desc">按下Ctrl+Enter换行</span>
-            <button class="send" nz-button>发送</button>
+            <button class="send" nz-button (click)="sendMsg()">发送</button>
           </div>
         </div>
       </div>

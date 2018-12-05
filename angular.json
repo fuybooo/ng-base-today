@@ -56,7 +56,10 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"
+              "node_modules/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js",
+              "src/assets/vendor/pinyin/pinyin_dict_firstletter.js",
+              "src/assets/vendor/pinyin/pinyin_dict_notone.js",
+              "src/assets/vendor/pinyin/pinyinUtil.js"
             ]
           },
           "configurations": {
