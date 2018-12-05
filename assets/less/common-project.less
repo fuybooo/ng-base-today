@@ -1,0 +1,40 @@
+@import "vars";
+.to-edge {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.full-screen {
+  .to-edge;
+  position: fixed;
+}
+/**
+ 鼠标划过时图标上移2px
+ */
+.floating-btn {
+  padding: 12px;
+  transition: all 0.2s linear;
+  cursor: pointer;
+  span {
+    transition: all 0.2s linear;
+  }
+  &:hover {
+    transform: translate3d(0, -2px, 0);
+    span {
+      color: @color-danger;
+    }
+  }
+}
+.wechat-menu-ul {
+  min-width: 180px;
+  li.ant-dropdown-menu-item {
+    padding: 8px;
+    font-size: 14px;
+    color: #000;
+    .wechat-icon {
+      width: 34px;
+      height: 34px;
+    }
+  }
+}
