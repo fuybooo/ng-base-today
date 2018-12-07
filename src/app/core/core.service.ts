@@ -6,7 +6,10 @@ import {LANG_INFO} from './local-storage/local-storage.namespace';
 import {environment} from '../../environments/environment';
 import {LocalStorageService} from './local-storage/local-storage.service';
 import {TranslateService} from '@ngx-translate/core';
-import {NzI18nService, zh_CN, en_US} from 'ng-zorro-antd';
+import {NzI18nService, zh_CN, en_US, zh_TW} from 'ng-zorro-antd';
+import {Error} from 'tslint/lib/error';
+
+const langs = ['zh', 'en', 'tw'];
 
 @Injectable()
 export class CoreService {
@@ -61,8 +64,19 @@ export class CoreService {
     });
   }
   initTranslateConfig() {
+    this.translateService.addLangs(langs);
+    this.setDefaultLang();
+  }
+  changeLang(lang) {
+    if (langs.includes(lang)) {
+      this.store.set(LANG_INFO, lang);
+      this.setDefaultLang();
+    } else {
+      throw new Error(`语言设置超出范围，不能设置${lang}，请选择"${langs.join('，')}"中的一种进行设置`);
+    }
+  }
+  setDefaultLang() {
     const lang = this.getDefaultLang();
-    this.translateService.addLangs(['zh', 'en']);
     this.translateService.setDefaultLang(lang);
     this.translateService.use(lang);
     let langFile;
@@ -72,6 +86,9 @@ export class CoreService {
         break;
       case 'en':
         langFile = en_US;
+        break;
+      case 'tw':
+        langFile = zh_TW;
         break;
     }
     this.nzI18nService.setLocale(langFile);

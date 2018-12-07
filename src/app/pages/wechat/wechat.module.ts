@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { WechatComponent } from './wechat.component';
 import {SharedModule} from '../../shared/shared.module';
 import {WechatRoutingModule} from './wechat-routing.module';
+import { LoginComponent } from './login/login.component';
+import { PcComponent } from './pc/pc.component';
 
 @NgModule({
-  declarations: [WechatComponent],
+  declarations: [WechatComponent, LoginComponent, PcComponent],
   imports: [
     SharedModule,
     WechatRoutingModule

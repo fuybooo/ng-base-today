@@ -1,0 +1,41 @@
+<div class="wechat-bg">
+  <i class="wechat-icon wechat"></i>
+  <div class="login-box">
+    <ng-container *ngIf="!showLogin">
+      <div class="login-qr" id="js-login-qr"></div>
+      <ng-container *ngIf="isValid">
+        <p class="title">{{'shi_yong_shou_ji_wei_xin_sao_ma_deng_lu' | translate}}</p>
+        <p class="desc">{{'wang_ye_ban_wei_xin_xu_yao_pei_he_shou_ji_shi_yong' | translate}}</p>
+      </ng-container>
+      <ng-container *ngIf="!isValid">
+        <p class="title">{{'er_wei_ma_shi_xiao' | translate}}，{{'dian_ji_shua_xin' | translate}}</p>
+      </ng-container>
+      <div class="qr-mask" *ngIf="!isValid">
+        <i class="wechat-icon refresh" (click)="refreshQr()" [class.transition]="isTransition"></i>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="showLogin">
+      <div class="avatar">
+        <img src="./assets/images/wechat/chats/webwxgeticon.jpg" alt="{{'tou_xiang' | translate}}">
+      </div>
+      <div class="btn-box">
+        <button nz-button nzBlock (click)="init()">{{'qie_huan_yong_hu' | translate}}</button>
+      </div>
+      <div class="btn-box">
+        <button nz-button nzBlock (click)="login()">{{'deng_lu' | translate}}</button>
+      </div>
+    </ng-container>
+  </div>
+  <div class="lang">
+    <span>{{'wechat_version' | translate}}</span>
+    <span class="sep"></span>
+    <span (click)="changeLang('zh')">{{'simplified_chinese' | translate}}</span>
+    <span class="sep"></span>
+    <span (click)="changeLang('tw')">{{'traditional_chinese' | translate}}</span>
+    <span class="sep"></span>
+    <span (click)="changeLang('en')">English</span>
+  </div>
+  <div class="copyright">
+    © 1998 - 2018 Tencent Inc. All Rights Reserved
+  </div>
+</div>

@@ -5,7 +5,7 @@
         <div class="fixed-content">
           <div class="header">
             <div class="avatar">
-              <img [src]="crtUser?.avatar" alt="头像">
+              <img [src]="crtUser?.avatar" alt="{{'tou_xiang' | translate}}">
             </div>
             <div class="info">
               <h1 class="nick-name">{{crtUser?.nickname}}</h1>
@@ -14,16 +14,16 @@
                   <i class="wechat-icon menu"></i>
                 </a>
                 <ul nz-menu class="wechat-menu-ul">
-                  <li nz-menu-item (click)="changePermission('push');"><i class="wechat-icon mr10" [class.push-on]="isPushOn" [class.push-off]="!isPushOn"></i>关闭桌面通知</li>
-                  <li nz-menu-item (click)="changePermission('volume');"><i class="wechat-icon mr10" [class.volume-on]="isVolumeOn" [class.volume-off]="!isVolumeOn"></i>关闭声音</li>
-                  <li nz-menu-item><i class="wechat-icon feedback mr10"></i>意见反馈</li>
-                  <li nz-menu-item><i class="wechat-icon quit mr10"></i>退出</li>
+                  <li nz-menu-item (click)="changePermission('push');"><i class="wechat-icon mr10" [class.push-on]="isPushOn" [class.push-off]="!isPushOn"></i>{{'guan_bi_zhuo_mian_tong_zhi' | translate}}</li>
+                  <li nz-menu-item (click)="changePermission('volume');"><i class="wechat-icon mr10" [class.volume-on]="isVolumeOn" [class.volume-off]="!isVolumeOn"></i>{{'guan_bi_sheng_yin' | translate}}</li>
+                  <li nz-menu-item><i class="wechat-icon feedback mr10"></i>{{'yi_jian_fan_kui' | translate}}</li>
+                  <li nz-menu-item (click)="logout()"><i class="wechat-icon quit mr10"></i>{{'tui_chu' | translate}}</li>
                 </ul>
               </nz-dropdown>
             </div>
           </div>
           <div class="search-bar">
-            <input class="search-input" type="text" placeholder="搜索" [(ngModel)]="keyword" (ngModelChange)="search()">
+            <input class="search-input" type="text" placeholder="{{'sou_suo' | translate}}" [(ngModel)]="keyword" (ngModelChange)="search()">
             <i class="wechat-icon search search-input-icon"></i>
             <div class="search-result" *ngIf="keyword">
               <ng-container *ngIf="resultList.length">
@@ -32,13 +32,13 @@
                     {{result.title}}
                   </ng-container>
                   <ng-container *ngIf="!result.title">
-                    <div class="avatar"><img [src]="result.avatar" [alt]="result.alt || '头像'"></div>
+                    <div class="avatar"><img [src]="result.avatar" [alt]="result.alt || 'tou_xiang' | translate"></div>
                     <div class="info">{{result.content}}</div>
                   </ng-container>
                 </div>
               </ng-container>
               <ng-container *ngIf="!resultList.length">
-                <div class="result-item no-record">找不到匹配的结果</div>
+                <div class="result-item no-record">{{'zhao_bu_dao_pi_pei_de_jie_guo' | translate}}</div>
               </ng-container>
             </div>
           </div>
@@ -50,7 +50,7 @@
             </div>
           </div>
           <div class="down-entry" nz-row>
-            <div nz-col [nzSpan]="20">下载微信PC版</div>
+            <div nz-col [nzSpan]="20">{{'xia_zai_wei_xin' | translate}}{{'PC_ban' | translate}}</div>
             <div nz-col [nzSpan]="4" class="tar"><i class="wechat-icon close"></i></div>
           </div>
         </div>
@@ -62,23 +62,23 @@
                 <!--是被屏蔽的群组：显示一个小点-->
                 <ng-container *ngIf="chat.msgCount && chat.isGroup && chat.isMuted">
                   <nz-badge nzDot class="is-dot">
-                    <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
+                    <img [src]="chat.avatar" [alt]="chat.alt || 'tou_xiang' | translate">
                   </nz-badge>
                 </ng-container>
                 <!--是未被屏蔽的群组或者不是群组：显示未读条数-->
                 <ng-container *ngIf="chat.msgCount && ((chat.isGroup && !chat.isMuted) || (!chat.isGroup))">
                   <nz-badge [nzCount]="chat.msgCount">
-                    <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
+                    <img [src]="chat.avatar" [alt]="chat.alt || 'tou_xiang' | translate">
                   </nz-badge>
                 </ng-container>
                 <!--不显示点或数字-->
                 <ng-container *ngIf="!chat.msgCount">
-                  <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
+                  <img [src]="chat.avatar" [alt]="chat.alt || 'tou_xiang' | translate">
                 </ng-container>
               </div>
               <div class="info">
                 <h3 class="nickname">{{chat.nickname}}</h3>
-                <p class="msg">{{(chat.msgCount ? ('[' + chat.msgCount + '条] ') : '') + chat.msg}}</p>
+                <p class="msg">{{(chat.msgCount ? ('[' + chat.msgCount + ('tiao' | translate) + '] ') : '') + chat.msg}}</p>
               </div>
               <div class="ext">
                 <p class="time">{{chat.time}}</p>
@@ -92,7 +92,7 @@
                 <div class="read-view-item item-user-name" *ngIf="read.userName">
                   <div class="item-user-name-content">
                     <div class="avatar">
-                      <img [src]="read.avatar" [alt]="read.alt || '头像'">
+                      <img [src]="read.avatar" [alt]="read.alt || 'tou_xiang' | translate">
                     </div>
                     <div class="user-name">{{read.userName}}</div>
                     <div class="time">{{read.time}}</div>
@@ -101,7 +101,7 @@
                 <div class="read-view-item item-content" *ngIf="!read.userName">
                   <div class="title">{{read.title}}</div>
                   <div class="avatar">
-                    <img [src]="read.avatar" [alt]="read.alt || '头像'">
+                    <img [src]="read.avatar" [alt]="read.alt || 'tou_xiang' | translate">
                   </div>
                 </div>
               </ng-container>
@@ -110,7 +110,7 @@
               <div class="concat-view-item" *ngFor="let concat of concatList">
                 <div *ngIf="concat.title" class="item-title">{{concat.title}}</div>
                 <div *ngIf="!concat.title" class="item-nickname">
-                  <div class="avatar"><img [src]="concat.avatar" [alt]="concat.alt || '头像'"></div>
+                  <div class="avatar"><img [src]="concat.avatar" [alt]="concat.alt || 'tou_xiang' | translate"></div>
                   <div class="info" [innerHTML]="concat.nickname"></div>
                 </div>
               </div>
@@ -131,7 +131,7 @@
         >
           <div class="member-item" *ngFor="let member of crtChat.memberList">
             <div class="avatar">
-              <img [src]="member.avatar" [alt]="member.alt || '头像'">
+              <img [src]="member.avatar" [alt]="member.alt || 'tou_xiang' | translate">
             </div>
             <div class="nickname">{{member.nickname}}</div>
           </div>
@@ -142,7 +142,7 @@
               <div class="time" *ngIf="chat.time">{{chat.time}}</div>
               <div class="content" [class.is-me]="chat.isMe">
                 <div class="avatar">
-                  <img [src]="chat.avatar" [alt]="chat.alt || '头像'">
+                  <img [src]="chat.avatar" [alt]="chat.alt || 'tou_xiang' | translate">
                 </div>
                 <div class="message">
                   <div class="nickname" *ngIf="crtChat.showNickname">{{chat.nickname}}</div>
@@ -160,22 +160,22 @@
         </div>
         <div class="chat-sender">
           <div class="toolbar">
-            <i class="wechat-icon face" title="表情" (click)="toggleFace()"></i>
-            <i class="wechat-icon clip" title="截屏" (click)="screenshots()"></i>
-            <i class="wechat-icon file" title="图片和文件" (click)="fileInput.click()"></i>
+            <i class="wechat-icon face" title="{{'biao_qing' | translate}}" (click)="toggleFace()"></i>
+            <i class="wechat-icon clip" title="{{'jie_ping' | translate}}" (click)="screenshots()"></i>
+            <i class="wechat-icon file" title="{{'tu_pian_he_wen_jian' | translate}}" (click)="fileInput.click()"></i>
             <input type="file" hidden #fileInput (change)="selectFile(fileInput.files[0])">
           </div>
           <div class="face-panel" [@faceToggle]="faceOpen ? 'open' : 'close'">
             <div class="face-tab">
-              <div class="tab" [class.active]="faceType === 1" (click)="faceType = 1;">QQ表情</div>
-              <div class="tab" [class.active]="faceType === 2" (click)="faceType = 2;">符号表情</div>
+              <div class="tab" [class.active]="faceType === 1" (click)="faceType = 1;">QQ{{'biao_qing' | translate}}</div>
+              <div class="tab" [class.active]="faceType === 2" (click)="faceType = 2;">{{'fu_hao_biao_qing' | translate}}</div>
             </div>
             <div class="face-wrapper" appScrollbar>
               <div class="face-box qq-face" *ngIf="faceType === 1">
-                <a *ngFor="let face of faceList" [class]="face.cls" [title]="face.title" (click)="selectFace(face)">{{face.title}}</a>
+                <a *ngFor="let face of faceList" [class]="face.cls" [title]="face.title" (click)="selectFace('qq-face-img', face)">{{face.title}}</a>
               </div>
               <div class="face-box emoji-face" *ngIf="faceType === 2">
-                <a *ngFor="let face of emojiList" [class]="face.cls" [title]="face.title">{{face.title}}</a>
+                <a *ngFor="let face of emojiList" [class]="face.cls" [title]="face.title" (click)="selectFace('emoji-face-img', face)">{{face.title}}</a>
               </div>
             </div>
           </div>
@@ -183,14 +183,14 @@
             <pre class="edit-area" contenteditable="true" #contentInput (keydown)="keyCrtContent($event)"></pre>
           </div>
           <div class="sender">
-            <span class="desc">按下Ctrl+Enter换行</span>
-            <button class="send" nz-button (click)="sendMsg()">发送</button>
+            <span class="desc">{{'an_xia' | translate}}Ctrl+Enter{{'huan_hang' | translate}}</span>
+            <button class="send" nz-button (click)="sendMsg()">{{'fa_song' | translate}}</button>
           </div>
         </div>
       </div>
     </div>
     <div class="footer">
-      © 1998 - 2018 Tencent Inc. All Rights Reserved <span class="sep"></span> 帮助
+      © 1998 - 2018 Tencent Inc. All Rights Reserved <span class="sep"></span> {{'bang_zhu' | translate}}
     </div>
   </div>
 </div>

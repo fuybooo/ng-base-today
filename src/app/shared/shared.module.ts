@@ -15,6 +15,7 @@ import {SearchComponent} from './component/search/search.component';
 import {TableCellComponent} from './component/table/table-cell/table-cell.component';
 import {TableFormatterComponent} from './component/table/table-formatter/table-formatter.component';
 import {TableComponent} from './component/table/table.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 /**
  * 共享模块
@@ -28,6 +29,7 @@ import {TableComponent} from './component/table/table.component';
     HttpClientModule,
     // 第三方模块
     NgZorroAntdModule,
+    TranslateModule
   ],
   declarations: [
     ButtonClickDirective,
@@ -51,6 +53,7 @@ import {TableComponent} from './component/table/table.component';
     HttpClientModule,
     // 第三方模块
     NgZorroAntdModule,
+    TranslateModule,
     // 本地指令
     ButtonClickDirective,
     ScrollbarDirective,

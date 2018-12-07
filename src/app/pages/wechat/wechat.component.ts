@@ -5,12 +5,16 @@ import {MSG_TYPE, faceList, emojiList} from './wechat.model';
 import {chatList, concatList, readList} from './wechat-mock';
 import {guid, sortObjectList} from '../../../fns/fns-util';
 import {titleToggle, faceToggle} from './webchat.animation';
+import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+import {getCurrentOnlyTime} from '../../../fns/fns-time';
 
 const staticFilePath = '/assets/images/wechat/';
 declare let pinyinUtil: any;
 declare let $: any;
 
 const scrollToBottom = function (scroll) {
+  $(scroll).mCustomScrollbar('scrollTo', 'bottom');
   $(scroll).mCustomScrollbar('scrollTo', 'bottom');
 };
 
@@ -39,6 +43,9 @@ export class WechatComponent implements OnInit {
       onOverflowY: function() {
         // 切换时执行
         scrollToBottom(this);
+      },
+      onUpdate: function() {
+        scrollToBottom(this);
       }
     }
   };
@@ -49,8 +56,11 @@ export class WechatComponent implements OnInit {
   emojiList = emojiList;
   crtContent;
   @ViewChild('contentInput') contentInput: ElementRef;
+  @ViewChild('scrollContent') scrollContent: ElementRef;
   constructor(
-    private store: LocalStorageService
+    private store: LocalStorageService,
+    private router: Router,
+    private translateService: TranslateService
   ) { }
 
   ngOnInit() {
@@ -61,7 +71,7 @@ export class WechatComponent implements OnInit {
   init() {
     this.crtUser = {
       avatar: this.getMockAvatar(),
-      nickname: '不知不觉',
+      nickname: this.translateService.instant('bu_zhi_bu_jue'),
     };
     this.chatList = chatList.map((item: any) => ({
         ...this.getCommonProperty({
@@ -82,7 +92,7 @@ export class WechatComponent implements OnInit {
     // 对tempConcatList进行分组排序
     _temp = [
       {
-        title: '群组'
+        title: this.translateService.instant('qun_zu')
       },
       ...sortObjectList(tempConcatList.filter(item => item.concatFlag === 2), 'py1')
     ];
@@ -184,13 +194,13 @@ export class WechatComponent implements OnInit {
         this.resultList = [
           ...(tempGroup.length ? [
             {
-              title: '群组',
+              title: this.translateService.instant('qun_zu'),
             },
               ...tempGroup,
             ] : []),
           ...(tempFriend.length ? [
             {
-              title: '好友',
+              title: this.translateService.instant('hao_you'),
             },
             ...tempFriend,
           ] : []),
@@ -230,8 +240,10 @@ export class WechatComponent implements OnInit {
   toggleFace() {
     this.faceOpen = !this.faceOpen;
   }
-  selectFace() {
-
+  selectFace(imgCls, face) {
+    const str = `<img class="${imgCls} ${face.cls}" src="${environment.deployPath}${staticFilePath}spacer.gif">`;
+    this.crtContent = this.crtContent + str;
+    this.contentInput.nativeElement.innerHTML = this.contentInput.nativeElement.innerHTML + str;
   }
   screenshots() {}
   selectFile(file) {
@@ -241,12 +253,15 @@ export class WechatComponent implements OnInit {
   }
   keyCrtContent($event) {
     this.crtContent = $event.target.innerHTML;
-    if ($event.keyCode === 13) {
+    if ($event.keyCode === 13 && !$event.altKey) {
       $event.preventDefault();
       this.sendMsg();
     }
   }
   sendMsg() {
+    if (!this.crtContent) {
+      return;
+    }
     this.crtChat.contentList = [...(this.crtChat.contentList || []), {
       nickname: this.crtUser.nickname,
       message: this.crtContent,
@@ -257,5 +272,21 @@ export class WechatComponent implements OnInit {
     // 发送完成之后将输入框清空
     this.contentInput.nativeElement.innerHTML = '';
     this.crtContent = '';
+    // 0.5 秒之后自动回复
+    if (!this.crtChat.isGroup) {
+      setTimeout(() => {
+        this.crtChat.contentList = [...this.crtChat.contentList, this.getCommonProperty({
+          time: getCurrentOnlyTime(),
+          nickname: this.crtChat.nickname,
+          message: '[自动回复] 您好，我现在有事不在，如果有紧急的事情，请致电我的助理',
+          messageType: MSG_TYPE.TEXT,
+          _avatar_i: this.crtChat._avatar_i,
+          _avatar_type: this.crtChat._avatar_type,
+        })];
+      }, 500);
+    }
+  }
+  logout() {
+    this.router.navigateByUrl('/wechat/login');
   }
 }

@@ -1,5 +1,13 @@
 export const ONE_HOUR = 60 * 60 * 1000;
 export const ONE_DAY = 24 * ONE_HOUR;
+const getPadding = function (time: number | string): string {
+  return ('0' + time).slice(-2);
+};
+
+export const getCurrentOnlyTime = function (): string {
+  const date = new Date();
+  return getPadding(date.getHours()) + ':' + getPadding(date.getMinutes());
+};
 
 export const getCurrentTime = function (): number {
   return new Date().getTime();

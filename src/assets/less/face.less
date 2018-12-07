@@ -25,15 +25,31 @@
   }
   .emoji-face {
     a {
-      background: url(../images/wechat/emoji-face.png) no-repeat;
+      background-image: url(../images/wechat/emoji-face.png);
+      background-repeat: no-repeat;
     }
   }
 
   .qq-face {
     a {
-      background: url(../images/wechat/qq-face.png) no-repeat;
+      background-image: url(../images/wechat/qq-face.png);
+      background-repeat: no-repeat;
     }
   }
+}
+.emoji-face-img, .qq-face-img {
+  width: 28px;
+  height: 28px;
+  display: inline-block;
+}
+.emoji-face-img {
+  background-image: url(../images/wechat/emoji-face.png);
+  background-repeat: no-repeat;
+}
+
+.qq-face-img {
+  background-image: url(../images/wechat/qq-face.png);
+  background-repeat: no-repeat;
 }
 
 .emoji0 {
@@ -1162,15 +1178,4 @@
 
 .qqface104 {
   background-position: -406px -174px
-}
-.emoji-face-img {
-  display: inline-block;
-  width: 28px;
-  height: 28px;
-}
-.emoji-img {
-  background: url(../images/wechat/emoji-face.png) no-repeat;
-}
-.face-img {
-  background: url(../images/wechat/qq-face.png) no-repeat;
 }

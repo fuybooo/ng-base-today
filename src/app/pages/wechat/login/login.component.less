@@ -1,0 +1,103 @@
+@import "../../../../assets/less/common-util";
+.wechat-bg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: url("../../../../assets/images/wechat/main-bg.jpg") no-repeat;
+  background-size: cover;
+  min-width: 860px;
+  min-height: 700px;
+  overflow: auto;
+  .login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 380px;
+    height: 540px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px #999;
+    .login-qr {
+      width: 270px;
+      margin: 42px auto 12px;
+    }
+    .title {
+      font-size: 20px;
+      color: #353535;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 23px;
+    }
+    .desc {
+      text-align: center;
+      color: #a3a3a3;
+      line-height: 1.8;
+    }
+    .qr-mask {
+      height: 274px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, .9);
+      position: absolute;
+      top: 40px;
+      left: 0;
+      .refresh {
+        width: 96px;
+        height: 96px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(0);
+        transition: transform 0.5s linear;
+        cursor: pointer;
+        &.transition {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+    }
+    .avatar {
+      width: 200px;
+      margin: 80px auto 40px;
+      img {
+        width: 200px;
+        height: 200px;
+      }
+    }
+    .btn-box {
+      width: 200px;
+      margin: 30px auto;
+    }
+  }
+  .wechat-icon.wechat {
+    width: 36px;
+    height: 28px;
+    position: absolute;
+    left: 60px;
+    top: 60px;
+  }
+  .lang {
+    position: absolute;
+    bottom: 60px;
+    left: 60px;
+    span {
+      cursor: pointer;
+      color: #d3d3d3;
+      font-size: 12px;
+    }
+    .sep {
+      display: inline-block;
+      vertical-align: middle;
+      height: 12px;
+      border-right: 1px solid #d3d3d3;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+  .copyright {
+    position: absolute;
+    bottom: 60px;
+    right: 60px;
+    color: #d3d3d3;
+    font-size: 12px;
+  }
+}
