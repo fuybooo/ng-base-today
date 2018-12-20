@@ -42,7 +42,7 @@
   </tr>
   </thead>
   <tbody>
-  <ng-container *ngFor="let data of nzTable.data; index as i">
+  <ng-container *ngFor="let data of nzTable.data; index as i; first as isFirst; last as isLast;">
     <tr (click)="tableService.handleClickRadio(data)"
         [class.ant-table-row-hover]="data.isSelected"
         [class.border-bottom-none]="data.isExpand"
@@ -64,10 +64,14 @@
       <td *ngFor="let col of columns"
           [ngStyle]="tableService.getTdStyle(col)">
         <app-table-cell [tableService]="tableService"
-                             [eventChange]="eventChange"
-                             [tableId]="tableId"
-                             [data]="data"
-                             [col]="col"></app-table-cell>
+                       [eventChange]="eventChange"
+                       [tableId]="tableId"
+                       [data]="data"
+                       [col]="col"
+                        [rowIndex]="i"
+                        [rowIsFirst]="isFirst"
+                        [rowIsLast]="isLast"
+        ></app-table-cell>
       </td>
     </tr>
   </ng-container>

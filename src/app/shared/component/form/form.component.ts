@@ -3,12 +3,19 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {findFormItem, FormConfigItem, FORMEVENT, FormRow} from './form.model';
 import {CoreService} from '../../../core/core.service';
 import {getOtherValueOfListByField} from '../../../../fns/fns-util';
-import {getSpecialCharacterValidator} from '../../../../fns/fns-validation';
+import {getClientDuplicateValidator, getSpecialCharacterValidator} from '../../../../fns/fns-validation';
 declare let $: any;
 // declare let wangEditor: any;
 
 /**
  * 适用任何的form表单
+ * 示例
+ * <app-form
+ *   [formId]="formId"
+ *   [(form)]="form"
+ *   [formConfig]="formConfig"
+ *   ></app-form>
+ * form必须双向绑定
  */
 @Component({
   selector: 'app-form',
@@ -77,6 +84,8 @@ export class FormComponent implements OnInit, OnDestroy {
                   return Validators.minLength(validator.value);
                 case 'mistake':
                   return getSpecialCharacterValidator(validator.value, validator.notAllow);
+                case 'duplicate':
+                  return getClientDuplicateValidator(validator.value, validator.field, validator.uid);
               }
             }) : [])]
             // todo 这里可以加入远程重复校验
@@ -142,6 +151,8 @@ export class FormComponent implements OnInit, OnDestroy {
         return '最少输入' + v.value + '位';
       case 'mistake':
         return '输入不合规范';
+      case 'duplicate':
+        return '输入内容已存在';
     }
   }
   fileChange(file, col) {

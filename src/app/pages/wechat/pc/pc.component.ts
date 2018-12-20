@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {CoreService} from '../../../core/core.service';
 
 @Component({
   selector: 'app-pc',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pc.component.less']
 })
 export class PcComponent implements OnInit {
-
-  constructor() { }
+  lang;
+  numList = Array(12);
+  circleList = Array(3);
+  constructor(
+    private core: CoreService
+  ) { }
 
   ngOnInit() {
+    this.lang = this.core.getDefaultLang();
   }
 
 }

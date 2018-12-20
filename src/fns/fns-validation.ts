@@ -9,19 +9,37 @@ import {FormControl} from '@angular/forms';
 
 export function getSpecialCharacterValidator(specialCharacter: RegExp, trueIsNotAllowFalseIsOnlyAllow = true) {
   return function (control: FormControl) {
-    if (control.value && control.value.trim() !== '') {
+    let value: any;
+    if (typeof control.value === 'number') {
+      value = control.value + '';
+    } else if (typeof control.value === 'string') {
+      value = control.value;
+    } else {
+      value = '';
+    }
+    if (value && value.trim() !== '') {
       if (trueIsNotAllowFalseIsOnlyAllow) {
-        if (specialCharacter.test(control.value.trim())) {
+        if (specialCharacter.test(value.trim())) {
           return {error: true, mistake: true};
         } else {
           return null;
         }
       } else {
-        if (!specialCharacter.test(control.value.trim())) {
+        if (!specialCharacter.test(value.trim())) {
           return {error: true, mistake: true};
         } else {
           return null;
         }
+      }
+    }
+  };
+}
+
+export function getClientDuplicateValidator(list: any[], field = 'name', crtUid?) {
+  return function (control: FormControl) {
+    if (control && control.value && control.value.trim()) {
+      if (list.some(item => item[field] === control.value && item.uid !== crtUid)) {
+        return {error: true, duplicate: true};
       }
     }
   };

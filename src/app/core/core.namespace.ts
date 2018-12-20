@@ -1,0 +1,3 @@
+export const EVENTS = {
+  LOTTERY_REFRESH: 'LOTTERY_REFRESH'
+};

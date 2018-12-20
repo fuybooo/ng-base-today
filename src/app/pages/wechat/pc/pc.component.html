@@ -1,18 +1,50 @@
 <div class="pc-bg">
-  <header class="header">
-    <i class="wechat-icon wechat"></i>
-    <span class="title">{{'wei_xin' | translate}}</span>
-    <span class="version">PC{{'ban' | translate}}</span>
-    <span class="tag">2.6.6</span>
-  </header>
-  <h1>
-    {{'qun_liao' | translate}}，
-    <br>
-    {{'ye_neng_shi_pin_liao_tian' | translate}}。
-  </h1>
-  <button class="btn-download">{{'xia_zai' | translate}}</button>
-  <div>
-    <p>{{'wei_xin' | translate}}PC{{'ban_guan_fang' | translate}}QQ{{'qun_jiao_liu' | translate}} 145378303</p>
-    <p>Copyright © 1998-2018 Tencent All Rights Reserved</p>
+  <div class="container">
+    <header class="header">
+      <div class="logo"
+           [class.zh]="lang === 'zh'"
+           [class.tw]="lang === 'tw'"
+           [class.en]="lang === 'en'">
+        微信 PC 版 2.6.6
+      </div>
+    </header>
+    <div class="text-box">
+      <h1 class="text">
+        {{'qun_liao' | translate}}，
+        <br>
+        {{'ye_neng_shi_pin_liao_tian' | translate}}。
+      </h1>
+      <a class="btn-download">{{'xia_zai' | translate}}</a>
+    </div>
+    <div class="simulator">
+      <div class="sidebar">
+        <div class="avatar"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+      </div>
+      <div class="nav">
+        <div class="item" *ngFor="let i of numList">
+          <div class="cover"></div>
+          <div class="content">
+            <h3 class="title"></h3>
+            <p class="desc"></p>
+          </div>
+        </div>
+      </div>
+      <div class="main">
+        <div class="chat"></div>
+        <div class="editor">
+          <div class="toolbar">
+            <div class="item" *ngFor="let i of circleList"></div>
+            <div class="item phone"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <p>{{'wei_xin' | translate}}PC{{'ban_guan_fang' | translate}}QQ{{'qun_jiao_liu' | translate}} 145378303</p>
+      <p>Copyright © 1998-2018 Tencent All Rights Reserved</p>
+    </div>
   </div>
 </div>

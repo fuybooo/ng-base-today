@@ -7,42 +7,56 @@ import {NzMessageService} from 'ng-zorro-antd';
   styleUrls: ['./import-file.component.less']
 })
 export class ImportFileComponent implements OnInit {
-  @Input() downloadUrl;
-  @Input() suffixList = ['xls'];
-  file;
-  fileName = '';
+  @Input() list: any[];
+  defSuffixList = ['xls', 'xlsx'];
   constructor(
     private message: NzMessageService
   ) { }
 
   ngOnInit() {
+    this.list.forEach(item => delete item.file);
   }
-  fileChange(file) {
-    // 判断文件的大小，后缀
-    if (this.isValidFile(file)) {
-      this.file = file.files[0];
-      this.fileName = this.file.name;
+  changeFile(i, fileInput) {
+    const file = fileInput.files[0];
+    const validFileType = (this.list[i].suffixList || this.defSuffixList).some(item => file.name.endsWith('.' + item));
+    const validFileSize = file.size <= (this.list[i].size || 1024000);
+    if (file && validFileType && validFileSize) {
+      this.list[i].file = file;
     } else {
-      this.file = null;
-      this.fileName = '';
-    }
-  }
-  isValidFile(file) {
-    if (file && file.files[0]) {
-      const fileName = file.files[0].name;
-      const suffix = fileName.slice(fileName.indexOf('.') + 1);
-      if (suffix) {
-        if (!this.suffixList.some(item => item === suffix)) {
-          this.message.error('请选择正确的文件类型');
-          return false;
-        } else {
-          return true;
-        }
+      if (!validFileType) {
+        this.message.error('文件类型错误');
+      } else if (!validFileSize) {
+        this.message.error('文件过大');
       }
+      this.list[i].file = null;
+      return false;
     }
-    return false;
   }
   downTemplate() {
     // window.location.href = this.downloadUrl;
+    // 下载固定模板template
+    window.location.href = 'data:application/vnd.ms-excel;base64,' + window.btoa(window['unescape'](window['encodeURIComponent'](`
+      <html>
+          <head>
+              <meta charset="UTF-8">
+              <style type="text/css">
+                  body, html {background-color: transparent;}
+                  table {border-collapse:collapse;border:thin solid #999;}
+                  td {border:thin solid #999;text-align: center;}
+                  .bold {font-weight: bold;}
+              </style>
+          </head>
+          <body>
+              <table cellspacing="0" cellpadding="0" border="1">
+                  <tr class="bold">
+                      <td>${'姓名'}</td>
+                      <td>${'机构部门'}</td>
+                      ${Array(8).fill(`<td></td>`).join('')}
+                  </tr>
+                  ${Array(100).fill(`<tr>${Array(10).fill(`<td></td>`).join('')}</tr>`).join('')}
+              </table>
+          </body>
+      </html>
+  `)));
   }
 }

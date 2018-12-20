@@ -16,6 +16,9 @@ export class TableCellComponent implements OnInit {
   @Input() tableService;
   @Input() eventChange;
   @Input() tableId;
+  @Input() rowIndex;
+  @Input() rowIsFirst;
+  @Input() rowIsLast;
 
   popVisible = false;
   delPopVisible = false;
@@ -28,6 +31,7 @@ export class TableCellComponent implements OnInit {
     },
   ];
   emitEvent = (col, data, event, extract = {}) => {
+    // event等于view或者edit时跳转到相应页面
     if (event === 'view' || event === 'edit') {
       // 查看，编辑，等跳转路由等操作直接在此处理
       this.router.navigateByUrl(getHref(col, data, event));

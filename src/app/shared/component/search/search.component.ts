@@ -15,9 +15,10 @@ export class SearchComponent {
     if (clear) {
       this.searchWord = '';
     }
-    this.search.emit(this.searchWord);
+    this.changeSearchWord(this.searchWord);
   }
   changeSearchWord(value) {
+    this.searchWordChange.emit(value);
     this.search.emit(value);
   }
 }

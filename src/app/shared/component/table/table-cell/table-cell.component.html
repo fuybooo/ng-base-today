@@ -4,7 +4,7 @@
     <!--使用columns中的formatter函数的返回值渲染-->
     <span *ngIf="isNotString(col.formatter)">{{getFormatText(col, data)}}</span>
     <!--使用组件进行渲染 —— 需要使用html辅助渲染的值-->
-    <app-table-formatter *ngIf="!isNotString(col.formatter)" [col]="col" [data]="data" [emitEvent]="emitEvent"></app-table-formatter>
+    <app-table-formatter *ngIf="!isNotString(col.formatter)" [col]="col" [data]="data" [emitEvent]="emitEvent" [rowIndex]="rowIndex" [rowIsFirst]="rowIsFirst" [rowIsLast]="rowIsLast"></app-table-formatter>
   </ng-container>
   <!--使用非formatter渲染-->
   <ng-container *ngIf="!col.formatter">
@@ -57,7 +57,7 @@
               <!--需要根据条件显示的删除-->
               <ng-container *ngIf="ev === 'delete'">
                 <app-table-formatter [col]="col" [data]="data" [type]="'delete'" [ev]="'delete'"
-                                     [evi]="evi" [emitEvent]="emitEvent"></app-table-formatter>
+                                     [evi]="evi" [emitEvent]="emitEvent" [rowIndex]="rowIndex" [rowIsFirst]="rowIsFirst" [rowIsLast]="rowIsLast"></app-table-formatter>
               </ng-container>
               <!--如果事件不为删除-->
               <a *ngIf="ev !== 'delete'" [class.ml20]="evi !== 0" (click)="emitEvent(col, data, ev)">{{col.text[evi].value}}</a>
@@ -68,7 +68,7 @@
             <!--如果事件为删除-->
             <ng-container *ngIf="ev === 'delete'">
               <app-table-formatter [col]="col" [data]="data" [type]="'delete'" [ev]="'delete'"
-                                   [evi]="evi" [emitEvent]="emitEvent"></app-table-formatter>
+                                   [evi]="evi" [emitEvent]="emitEvent" [rowIndex]="rowIndex" [rowIsFirst]="rowIsFirst" [rowIsLast]="rowIsLast"></app-table-formatter>
             </ng-container>
             <!--如果事件不是删除-->
             <ng-container *ngIf="ev !== 'delete'">
@@ -81,7 +81,7 @@
       <ng-container *ngIf="!isNotString(col.event)">
         <ng-container *ngIf="col.event === 'delete'">
           <app-table-formatter [col]="col" [data]="data" [type]="'delete'" [ev]="'delete'"
-                               [evi]="0" [emitEvent]="emitEvent"></app-table-formatter>
+                               [evi]="0" [emitEvent]="emitEvent" [rowIndex]="rowIndex" [rowIsFirst]="rowIsFirst" [rowIsLast]="rowIsLast"></app-table-formatter>
         </ng-container>
         <ng-container *ngIf="col.event !== 'delete'">
           <a (click)="emitEvent(col, data, col.event)">{{col.text}}</a>

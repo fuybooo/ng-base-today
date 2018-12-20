@@ -1,24 +1,24 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {InitGuardService} from '../../core/guard/init-guard.service';
-import {WechatComponent} from './wechat.component';
-import {LoginComponent} from './login/login.component';
-import {PcComponent} from './pc/pc.component';
+import {LotteryComponent} from './lottery.component';
+import {SettingComponent} from './setting/setting.component';
 const routes: Routes = [
   {
     path: '',
     canActivate: [InitGuardService],
-    component: WechatComponent
+    component: LotteryComponent,
+    data: {
+      title: '抽奖系统'
+    }
   },
   {
-    path: 'login',
+    path: 'setting',
     canActivate: [InitGuardService],
-    component: LoginComponent
-  },
-  {
-    path: 'pc',
-    canActivate: [InitGuardService],
-    component: PcComponent
+    component: SettingComponent,
+    data: {
+      title: '抽奖系统-设置'
+    }
   },
 ];
 
@@ -26,4 +26,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class WechatRoutingModule { }
+export class LotteryRoutingModule { }

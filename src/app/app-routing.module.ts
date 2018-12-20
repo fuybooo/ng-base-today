@@ -20,6 +20,10 @@ const routes: Routes = [
     loadChildren: './pages/wechat/wechat.module#WechatModule'
   },
   {
+    path: 'lottery',
+    loadChildren: './pages/lottery/lottery.module#LotteryModule'
+  },
+  {
     path: 'setup',
     loadChildren: './pages/setup/setup.module#SetupModule'
   },

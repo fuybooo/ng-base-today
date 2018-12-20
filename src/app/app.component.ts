@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
     private core: CoreService
   ) {}
   ngOnInit() {
+    this.core.watchRoute();
     this.core.initTranslateConfig();
   }
 }

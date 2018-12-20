@@ -1,18 +1,19 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {DomSanitizer} from '@angular/platform-browser';
+import {DomSanitizer, Title} from '@angular/platform-browser';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {filter, map} from 'rxjs/internal/operators';
 import {LANG_INFO} from './local-storage/local-storage.namespace';
 import {environment} from '../../environments/environment';
 import {LocalStorageService} from './local-storage/local-storage.service';
 import {TranslateService} from '@ngx-translate/core';
-import {NzI18nService, zh_CN, en_US, zh_TW} from 'ng-zorro-antd';
+import {NzI18nService, zh_CN, en_US, zh_TW, NzModalService} from 'ng-zorro-antd';
 import {Error} from 'tslint/lib/error';
 
 const langs = ['zh', 'en', 'tw'];
 
 @Injectable()
 export class CoreService {
+  commonEvent = new EventEmitter();
   pageHeightEvent = new EventEmitter();
   globalFormEvent = new EventEmitter();
   globalTableEvent = new EventEmitter();
@@ -24,7 +25,9 @@ export class CoreService {
     private activatedRoute: ActivatedRoute,
     private store: LocalStorageService,
     private translateService: TranslateService,
-    private nzI18nService: NzI18nService
+    private title: Title,
+    private nzI18nService: NzI18nService,
+    private modalService: NzModalService
   ) {}
   getDefaultLang() {
     const localLang = this.store.get(LANG_INFO);
@@ -61,6 +64,8 @@ export class CoreService {
       filter(route => route.outlet === 'primary')
     ).subscribe(route => {
       this.routeChangeEvent.emit();
+      this.modalService.closeAll();
+      this.title.setTitle(route.snapshot.data.title);
     });
   }
   initTranslateConfig() {

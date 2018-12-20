@@ -16,6 +16,7 @@ import {TableCellComponent} from './component/table/table-cell/table-cell.compon
 import {TableFormatterComponent} from './component/table/table-formatter/table-formatter.component';
 import {TableComponent} from './component/table/table.component';
 import {TranslateModule} from '@ngx-translate/core';
+import {PopImportDirective} from './directive/pop-import.directive';
 
 /**
  * 共享模块
@@ -35,6 +36,7 @@ import {TranslateModule} from '@ngx-translate/core';
     ButtonClickDirective,
     ScrollbarDirective,
     UnlessDirective,
+    PopImportDirective,
     FormComponent,
     CommonInfoPageComponent,
     CommonPageComponent,
@@ -44,6 +46,9 @@ import {TranslateModule} from '@ngx-translate/core';
     TableCellComponent,
     TableFormatterComponent,
     TableComponent
+  ],
+  entryComponents: [
+    ImportFileComponent
   ],
   exports: [
     // 官方模块
@@ -58,6 +63,7 @@ import {TranslateModule} from '@ngx-translate/core';
     ButtonClickDirective,
     ScrollbarDirective,
     UnlessDirective,
+    PopImportDirective,
     FormComponent,
     CommonInfoPageComponent,
     CommonPageComponent,

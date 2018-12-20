@@ -17,6 +17,9 @@ export class TableFormatterComponent implements OnInit {
   @Input() ev;
   @Input() evi;
   @Input() emitEvent;
+  @Input() rowIndex;
+  @Input() rowIsFirst;
+  @Input() rowIsLast;
   popVisible = false;
   delPopVisible = false;
   popValue = null;
@@ -57,5 +60,11 @@ export class TableFormatterComponent implements OnInit {
   }
   isShowOpBtn(data) {
     return true;
+  }
+  sortTo(dir) {
+    if ((dir === 'up' && this.rowIsFirst) || (dir === 'down' && this.rowIsLast)) {
+      return;
+    }
+    this.emitEvent(this.col, this.data, 'sort-' + dir, {index: this.rowIndex});
   }
 }

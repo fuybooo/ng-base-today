@@ -15,6 +15,7 @@ import {HttpInterceptorService} from './http/http-interceptor.service';
 import {LocalStorageService} from './local-storage/local-storage.service';
 import {InitGuardService} from './guard/init-guard.service';
 import {CoreService} from './core.service';
+import {HttpService} from './http/http.service';
 registerLocaleData(zh);
 const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http, environment.deployPath + '/assets/i18n/', '.json');
 
@@ -51,6 +52,7 @@ const createTranslateLoader = (http: HttpClient) => new TranslateHttpLoader(http
     // http拦截器
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true},
     {provide: LocationStrategy, useClass: HashLocationStrategy},
+    HttpService,
     CoreService,
     LocalStorageService,
     InitGuardService

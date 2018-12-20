@@ -27,7 +27,7 @@
     </ng-container>
   </div>
   <div class="lang">
-    <span>{{'wechat_version' | translate}}</span>
+    <span (click)="toPc()">{{'wechat_version' | translate}}</span>
     <span class="sep"></span>
     <span (click)="changeLang('zh')">{{'simplified_chinese' | translate}}</span>
     <span class="sep"></span>

@@ -2,7 +2,7 @@
   <input #searchInput type="text" nz-input [placeholder]="placeholder" [(ngModel)]="searchWord" (ngModelChange)="changeSearchWord($event)" (keydown.enter)="doSearch(searchInput)">
 </nz-input-group>
 <ng-template #suffixTemplate>
-  <i class="anticon anticon-close-circle cp mr8 text-secondary" (click)="doSearch(searchInput, true)" *ngIf="searchWord"></i>
-  <i class="anticon anticon-search cp" (click)="doSearch(searchInput)"></i>
+  <i nz-icon type="close-circle" [theme]="'fill'" class="cp mr8 text-secondary" (click)="doSearch(searchInput, true)" *ngIf="searchWord"></i>
+  <i nz-icon type="search" class="cp" (click)="doSearch(searchInput)"></i>
 </ng-template>
 

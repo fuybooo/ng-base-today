@@ -1,11 +1,13 @@
 
-declare type controlValidatorType = 'required' | 'maxlength' | 'minlength' | 'mistake';
+declare type controlValidatorType = 'required' | 'maxlength' | 'minlength' | 'mistake' | 'duplicate';
 declare type controlType = undefined | 'text' | 'commonSelect' | 'checkbox' | 'checkboxes' | 'radio' | 'textarea' | 'switch' | 'number' | 'date' | 'date-range' | 'time' | 'file' | 'custom' | 'label' | 'treeSelect' | 'editor' | 'inputGroup';
 interface ControlValidator {
   type: controlValidatorType; // 验证类型
-  value?: RegExp | number; // 验证类型附加值，最大最小值，验证正则等
+  value?: RegExp | number | any[]; // 验证类型附加值，最大最小值，验证正则等
   notAllow?: boolean; // 验证正则时的规则
   text?: string; // 验证提示语
+  field?: string; // 验证重复时需要排除的依据field
+  uid?: string; // 验证重复时需要排除的依据
 }
 export interface FormConfigItem {
   colType?: string; // 表单类型 view：表示显示状态
@@ -77,9 +79,17 @@ export function simpleSetForm(formConfig, formValue) {
     }
   }
 }
+
+/**
+ * 表单行配置
+ */
 export interface FormRowConfig {
   colLength?: number; // 配置每行的列数
 }
+
+/**
+ * 表单配置
+ */
 export interface FormRow {
   formConfigItem: FormConfigItem[];
   rowConfig: FormRowConfig; // 行的配置

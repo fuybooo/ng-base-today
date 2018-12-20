@@ -1,0 +1,29 @@
+<div class="lottery-bg">
+  <app-canvas *ngIf="!crtPrize"></app-canvas>
+  <h1 class="banner">
+    先锋抽奖系统
+  </h1>
+  <i nz-icon type="setting" class="lottery-setting" (click)="toSetting()"></i>
+  <div class="container">
+    <div class="winner-box">
+      <div class="winner-list" *ngFor="let win of winnerList">{{win.prize}}: {{win.winner.name}}</div>
+    </div>
+    <div class="info">
+      <ng-container *ngIf="crtPrize">
+        <span>当前抽取：{{crtPrize?.prize}}</span>
+        <span><ng-container *ngIf="nextPrize">下次抽取：{{nextPrize?.prize}}</ng-container></span>
+      </ng-container>
+      <ng-container *ngIf="!crtPrize">抽奖结束！</ng-container>
+    </div>
+    <div class="winner" [class.none]="!crtWinner">{{crtWinner ? crtWinner.name : '未产生'}}</div>
+    <div class="btn-box">
+      <ng-container *ngIf="crtPrize">
+        <button class="btn start-btn" nz-button [nzType]="'primary'" [nzGhost]="true" (click)="start()">开始</button>
+        <button class="btn end-btn" nz-button [nzType]="'danger'" [nzGhost]="true" (click)="stop()">停止</button>
+      </ng-container>
+      <ng-container *ngIf="!crtPrize">
+        <button class="btn" nz-button [nzType]="'primary'" [nzGhost]="true" (click)="reset()">重新抽取</button>
+      </ng-container>
+      </div>
+  </div>
+</div>

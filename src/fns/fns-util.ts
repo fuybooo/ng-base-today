@@ -277,3 +277,10 @@ export function getOtherValueOfListByField(list: any[], value: any, key: string,
   }
   return list.find(l => l[key] === value)[otherKey];
 }
+
+/**
+ * 根据list获取 最大排序数
+ */
+export function getMaxSort(list: any[]): number {
+  return Math.max(...list.map(item => item.sort));
+}

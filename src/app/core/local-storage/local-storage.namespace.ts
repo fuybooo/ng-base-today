@@ -21,3 +21,8 @@ export const SUMMARIES = SUMMARY_NAMESPACE + 'summaries';
 export const PROJECT = 'project.';
 export const API_PATH = PROJECT + 'apiPath';
 export const LANG_INFO = PROJECT + 'langInfo';
+
+export const LOTTERY = 'lottery.';
+export const LOTTERY_PARTICIPANT = LOTTERY + 'participant';
+export const LOTTERY_PRIZE = LOTTERY + 'prize';
+export const LOTTERY_WINNER = LOTTERY + 'winner';

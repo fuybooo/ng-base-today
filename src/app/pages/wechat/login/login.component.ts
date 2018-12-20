@@ -75,4 +75,7 @@ export class LoginComponent implements OnInit {
   changeLang(lang) {
     this.core.changeLang(lang);
   }
+  toPc() {
+    this.router.navigateByUrl('/wechat/pc');
+  }
 }

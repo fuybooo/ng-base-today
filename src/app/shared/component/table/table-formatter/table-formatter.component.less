@@ -44,4 +44,18 @@
 .customer-month-1 {
   color: @color-disable;
 }
-
+.table-sort-box {
+  display: flex;
+  flex-direction: column;
+  .sort-caret {
+    &:not(.disabled) {
+      cursor: pointer;
+    }
+    &.disabled {
+      color: @color-disable;
+    }
+    &:not(.disabled):hover {
+      color: @primary-color;
+    }
+  }
+}

@@ -1,0 +1,58 @@
+<div class="lottery-setting-bg">
+  <div class="arrow-left-box"><i nz-icon type="arrow-left" class="arrow-left" (click)="back()"></i></div>
+  <h1 class="title-box">
+    奖项设置
+    <i nz-icon type="plus" class="plus" (click)="popPrize()"></i>
+  </h1>
+  <div class="table-box mt20">
+    <app-table
+      [showPagination]="false"
+      [tableId]="tableId3"
+      [dataSet]="prizeList"
+      [columns]="prizeColumns"
+      [isCheckbox]="false"
+      (eventChange)="eventChange($event)"
+    ></app-table>
+  </div>
+  <h1 class="title-box">抽奖名单</h1>
+  <div class="search-box">
+    <app-search class="search" (search)="search(1, $event)" (searchWordChange)="searchWordChange($event)"></app-search>
+    <button class="ml20" nz-button [nzType]="'primary'" appPopImport [config]="config">导入</button>
+  </div>
+  <div class="table-box mt20">
+    <app-table
+      [tableId]="tableId1"
+      [dataSet]="participantList"
+      [columns]="columns"
+      (eventChange)="eventChange($event)"
+    ></app-table>
+  </div>
+  <h1 class="title-box">
+    中奖名单
+    <i nz-icon type="delete" title="清空" (click)="clear()"></i>
+  </h1>
+  <div class="table-box mt20">
+    <app-table
+      [showPagination]="false"
+      [isCheckbox]="false"
+      [tableId]="tableId2"
+      [dataSet]="winnerList"
+      [columns]="winnerColumns"
+      (eventChange)="eventChange($event)"
+    ></app-table>
+  </div>
+</div>
+
+<!--<ng-template #contentTpl>-->
+  <!--<app-form-->
+    <!--[formId]="formId"-->
+    <!--[(form)]="form"-->
+    <!--[formConfig]="formConfig"-->
+  <!--&gt;</app-form>-->
+<!--</ng-template>-->
+<!--<ng-template #footerTpl>-->
+  <!--<button nz-button (click)="destroyModal()">取消</button>-->
+  <!--<button nz-button nzType="primary"-->
+          <!--(click)="save()"-->
+          <!--[disabled]="form.pristine || form.invalid">确定</button>-->
+<!--</ng-template>-->

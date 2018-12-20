@@ -1,13 +1,14 @@
-<div nz-row>
-  <div nz-col [nzSpan]="18">
-    <input type="file" #file hidden (change)="fileChange(file)">
-    <button nz-button [nzType]="'primary'" (click)="file.click()">选择文件</button>
-    <span class="ml20 text-secondary">请选择后缀为{{suffixList.join('、')}}的文件。</span>
+<div nz-row *ngFor="let option of list; index as i" [class.mt10]="i">
+  <div nz-col [nzSpan]="20">
+    <span class="mr20 dib w100">{{option.label}}</span>
+    <input type="file" hidden (change)="changeFile(i, fileInput)" #fileInput>
+    <button nz-button [nzSize]="'small'" type="button" (click)="fileInput.click()">选择文件</button>
+    <span *ngIf="option.file" class="ml20 text-aux">
+      <i nz-icon type="file-excel" theme="fill" class="mr4 import-file-excel"></i>{{option.file?.name}}
+    </span>
+    <span *ngIf="!option.file" class="ml20 text-aux">请选择{{(option.suffixList || defSuffixList).join('、')}}文件</span>
   </div>
-  <div nz-col [nzSpan]="6" class="tar">
-    <button nz-button (click)="downTemplate()">下载模板</button>
+  <div nz-col [nzSpan]="4" class="tar">
+    <button nz-button [nzSize]="'small'" type="button" (click)="downTemplate(i)" appButtonClick>下载模板</button>
   </div>
-</div>
-<div class="mt20" *ngIf="fileName">
-  <span class="text-secondary">已选文件：</span><span>{{fileName}}</span>
 </div>
