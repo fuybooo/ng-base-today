@@ -202,7 +202,7 @@ export class SettingComponent implements OnInit {
   }
   clear() {
     this.winnerList = [];
-    this.winnerList.set(LOTTERY_WINNER, []);
+    this.store.set(LOTTERY_WINNER, []);
   }
   destroyModal() {
     this.modalInstance.destroy();
